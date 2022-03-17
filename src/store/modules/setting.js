@@ -29,67 +29,6 @@ const state = {
     tag,
     lang: getLanguage() || lang,
 };
-
-const getters = {
-    routerView: (state) => state.routerView,
-    isMobile: (state) => state.isMobile,
-    isDrawer: (state) => state.isDrawer,
-    isFullScreen: (state) => state.isFullScreen,
-    theme: (state) => state.theme,
-    isDrawerSetting: (state) => state.isDrawerSetting,
-    fullScreen: (state) => state.fullScreen,
-    refresh: (state) => state.refresh,
-    fixedHead: (state) => state.fixedHead,
-    notice: (state) => state.notice,
-    isBreadcrumb: (state) => state.isBreadcrumb,
-    isLogo: (state) => state.isLogo,
-    tag: (state) => state.tag,
-    mode: (state) => state.mode,
-    settings: (state) => state,
-    lang: (state) => state.lang,
-};
-
-const mutations = {
-    CHANGE_COLLAPSE: (state) => {
-        state.collapse = !state.collapse;
-    },
-    CHANGE_FULL_SCREEN: (state, flag) => {
-        state.isFullScreen = flag;
-    },
-    SET_ROUTER_VIEW: (state) => {
-        state.routerView = !state.routerView;
-    },
-    CHANGE_IS_MOBILE: (state, flag) => {
-        state.isMobile = flag;
-    },
-    CHANGE_IS_DRAWER: (state, flag) => {
-        state.isDrawer = flag;
-    },
-    SET_THEME: (state, theme) => {
-        state.theme = theme;
-    },
-    CHANGE_SETTING_DRAWER: (state, flag) => {
-        state.isDrawerSetting = flag;
-    },
-    CHANGE_BREADCRUMB: (state, flag) => {
-        state.isBreadcrumb = flag;
-    },
-    CHANGE_TAG: (state, flag) => {
-        state.tag = flag;
-    },
-    CHANE_MODE: (state, mode) => {
-        state.mode = mode;
-    },
-    SET_SETTING_OPTIONS: (state, options) => {
-        setSettings(options.value);
-        Object.assign(state, {...options.value });
-    },
-    CHANGE_LANGUAGE: (state, lang) => {
-        setLanguage(lang);
-        state.lang = lang;
-    },
-};
-
 const actions = {
     /**
      * @description 切换展开收起
@@ -178,6 +117,66 @@ const actions = {
     setSettingOptions: ({ commit }, options) => {
         commit("SET_SETTING_OPTIONS", options);
     },
+};
+
+const mutations = {
+    CHANGE_COLLAPSE: (state) => {
+        state.collapse = !state.collapse;
+    },
+    CHANGE_FULL_SCREEN: (state, flag) => {
+        state.isFullScreen = flag;
+    },
+    SET_ROUTER_VIEW: (state) => {
+        state.routerView = !state.routerView;
+    },
+    CHANGE_IS_MOBILE: (state, flag) => {
+        state.isMobile = flag;
+    },
+    CHANGE_IS_DRAWER: (state, flag) => {
+        state.isDrawer = flag;
+    },
+    SET_THEME: (state, theme) => {
+        state.theme = theme;
+    },
+    CHANGE_SETTING_DRAWER: (state, flag) => {
+        state.isDrawerSetting = flag;
+    },
+    CHANGE_BREADCRUMB: (state, flag) => {
+        state.isBreadcrumb = flag;
+    },
+    CHANGE_TAG: (state, flag) => {
+        state.tag = flag;
+    },
+    CHANE_MODE: (state, mode) => {
+        state.mode = mode;
+    },
+    SET_SETTING_OPTIONS: (state, options) => {
+        setSettings(options.value);
+        Object.assign(state, {...options.value });
+    },
+    CHANGE_LANGUAGE: (state, lang) => {
+        setLanguage(lang);
+        state.lang = lang;
+    },
+};
+
+const getters = {
+    routerView: (state) => state.routerView,
+    isMobile: (state) => state.isMobile,
+    isDrawer: (state) => state.isDrawer,
+    isFullScreen: (state) => state.isFullScreen,
+    theme: (state) => state.theme,
+    isDrawerSetting: (state) => state.isDrawerSetting,
+    fullScreen: (state) => state.fullScreen,
+    refresh: (state) => state.refresh,
+    fixedHead: (state) => state.fixedHead,
+    notice: (state) => state.notice,
+    isBreadcrumb: (state) => state.isBreadcrumb,
+    isLogo: (state) => state.isLogo,
+    tag: (state) => state.tag,
+    mode: (state) => state.mode,
+    settings: (state) => state,
+    lang: (state) => state.lang,
 };
 
 export default {

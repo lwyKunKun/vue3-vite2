@@ -27,13 +27,14 @@ const localLanguage = computed(() => {
 });
 const scroll = ref(null);
 const router = useRouter();
+
 onMounted(() => {
   changeBodyWidth();
   window.addEventListener('resize', changeResize);
 });
 
 watch(
-  () => router.currentRoute.value,
+  () => router.currentRoute.value,//path: '/', name: undefined, params: {…}, query: {…}, hash: '', …}
   () => {
     scroll.value.setScrollTop(0);
   }

@@ -85,241 +85,241 @@
 </template>
 
 <script>
-  export default {
-    name: 'ThemeSetting',
-  };
+export default {
+  name: 'ThemeSetting',
+};
 </script>
 
 <script setup>
-  import { ref, reactive, computed, watch } from 'vue';
-  import { useStore } from 'vuex';
-  import { useI18n } from 'vue-i18n';
-  const { t } = useI18n();
-  const ORIGINAL_THEME = '#409EFF';
+import { ref, reactive, computed, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n/index';
+const { t } = useI18n();
+const ORIGINAL_THEME = '#409EFF';
 
-  import { themeConfig } from '@/config/theme';
-  const { themeOptions } = themeConfig;
+import { themeConfig } from '@/config/theme';
+const { themeOptions } = themeConfig;
 
-  const store = useStore();
+const store = useStore();
 
-  const setting = reactive({
-    tag: true,
-    chalk: '',
-    isLogo: true,
-    mode: 'vertical',
-    isBreadcrumb: true,
-    fixedHead: true,
-    fullscreen: true,
-    refresh: true,
-    notice: true,
-    modeOption: [
-      {
-        value: 'vertical',
-        label: t('layout.vertical'),
-      },
-      {
-        value: 'horizontal',
-        label: t('layout.horizontal'),
-      },
-    ],
-    colorOptions: [
-      {
-        value: 'theme1',
-        label: t('theme.options.theme1'),
-      },
-      {
-        value: 'theme2',
-        label: t('theme.options.theme2'),
-      },
-      {
-        value: 'theme3',
-        label: t('theme.options.theme3'),
-      },
-      {
-        value: 'theme4',
-        label: t('theme.options.theme4'),
-      },
-      {
-        value: 'theme5',
-        label: t('theme.options.theme5'),
-      },
-      {
-        value: 'theme6',
-        label: t('theme.options.theme6'),
-      },
-    ],
-  });
+const setting = reactive({
+  tag: true,
+  chalk: '',
+  isLogo: true,
+  mode: 'vertical',
+  isBreadcrumb: true,
+  fixedHead: true,
+  fullscreen: true,
+  refresh: true,
+  notice: true,
+  modeOption: [
+    {
+      value: 'vertical',
+      label: t('layout.vertical'),
+    },
+    {
+      value: 'horizontal',
+      label: t('layout.horizontal'),
+    },
+  ],
+  colorOptions: [
+    {
+      value: 'theme1',
+      label: t('theme.options.theme1'),
+    },
+    {
+      value: 'theme2',
+      label: t('theme.options.theme2'),
+    },
+    {
+      value: 'theme3',
+      label: t('theme.options.theme3'),
+    },
+    {
+      value: 'theme4',
+      label: t('theme.options.theme4'),
+    },
+    {
+      value: 'theme5',
+      label: t('theme.options.theme5'),
+    },
+    {
+      value: 'theme6',
+      label: t('theme.options.theme6'),
+    },
+  ],
+});
 
-  const direction = ref('rtl');
+const direction = ref('rtl');
 
-  const settings = computed(() => {
-    return store.getters['setting/settings'];
-  });
+const settings = computed(() => {
+  return store.getters['setting/settings'];
+});
 
-  const isMobile = computed(() => {
-    return store.getters['setting/isMobile'];
-  });
+const isMobile = computed(() => {
+  return store.getters['setting/isMobile'];
+});
 
-  const handleToSave = () => {
-    store.dispatch('setting/setSettingOptions', settings);
-    store.dispatch('setting/setSettingDrawer', false);
-  };
+const handleToSave = () => {
+  store.dispatch('setting/setSettingOptions', settings);
+  store.dispatch('setting/setSettingDrawer', false);
+};
 
-  const handleChangeTag = (val) => {
-    store.dispatch('setting/setTag', val);
-  };
+const handleChangeTag = (val) => {
+  store.dispatch('setting/setTag', val);
+};
 
-  const handleChangeBread = (val) => {
-    store.dispatch('setting/setBreadcrumb', val);
-  };
+const handleChangeBread = (val) => {
+  store.dispatch('setting/setBreadcrumb', val);
+};
 
-  const handleChangeMode = (val) => {
-    store.dispatch('setting/setSettingOptions', settings);
-    store.dispatch('setting/setMode', val);
-  };
+const handleChangeMode = (val) => {
+  store.dispatch('setting/setSettingOptions', settings);
+  store.dispatch('setting/setMode', val);
+};
 
-  const handleChangeTheme = (val) => {
-    store.dispatch('setting/setTheme', val);
-  };
+const handleChangeTheme = (val) => {
+  store.dispatch('setting/setTheme', val);
+};
 
-  const getThemeCluster = (theme) => {
-    const tintColor = (color, tint) => {
-      let red = parseInt(color.slice(0, 2), 16);
-      let green = parseInt(color.slice(2, 4), 16);
-      let blue = parseInt(color.slice(4, 6), 16);
-      if (tint === 0) {
-        return [red, green, blue].join(',');
-      } else {
-        red += Math.round(tint * (255 - red));
-        green += Math.round(tint * (255 - green));
-        blue += Math.round(tint * (255 - blue));
-        red = red.toString(16);
-        green = green.toString(16);
-        blue = blue.toString(16);
-        return `#${red}${green}${blue}`;
-      }
-    };
-    const shadeColor = (color, shade) => {
-      let red = parseInt(color.slice(0, 2), 16);
-      let green = parseInt(color.slice(2, 4), 16);
-      let blue = parseInt(color.slice(4, 6), 16);
-      red = Math.round((1 - shade) * red);
-      green = Math.round((1 - shade) * green);
-      blue = Math.round((1 - shade) * blue);
+const getThemeCluster = (theme) => {
+  const tintColor = (color, tint) => {
+    let red = parseInt(color.slice(0, 2), 16);
+    let green = parseInt(color.slice(2, 4), 16);
+    let blue = parseInt(color.slice(4, 6), 16);
+    if (tint === 0) {
+      return [red, green, blue].join(',');
+    } else {
+      red += Math.round(tint * (255 - red));
+      green += Math.round(tint * (255 - green));
+      blue += Math.round(tint * (255 - blue));
       red = red.toString(16);
       green = green.toString(16);
       blue = blue.toString(16);
       return `#${red}${green}${blue}`;
-    };
-    const clusters = [theme];
-    for (let i = 0; i <= 9; i++) {
-      clusters.push(tintColor(theme, Number((i / 10).toFixed(2))));
     }
-    clusters.push(shadeColor(theme, 0.1));
-    return clusters;
   };
-
-  const updateStyle = (style, oldCluster, newCluster) => {
-    let newStyle = style;
-    oldCluster.forEach((color, index) => {
-      newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index]);
-    });
-    return newStyle;
+  const shadeColor = (color, shade) => {
+    let red = parseInt(color.slice(0, 2), 16);
+    let green = parseInt(color.slice(2, 4), 16);
+    let blue = parseInt(color.slice(4, 6), 16);
+    red = Math.round((1 - shade) * red);
+    green = Math.round((1 - shade) * green);
+    blue = Math.round((1 - shade) * blue);
+    red = red.toString(16);
+    green = green.toString(16);
+    blue = blue.toString(16);
+    return `#${red}${green}${blue}`;
   };
+  const clusters = [theme];
+  for (let i = 0; i <= 9; i++) {
+    clusters.push(tintColor(theme, Number((i / 10).toFixed(2))));
+  }
+  clusters.push(shadeColor(theme, 0.1));
+  return clusters;
+};
 
-  const getCSSString = (url, variable) => {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          setting[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, '');
-          resolve();
-        }
-      };
-      xhr.open('GET', url);
-      xhr.send();
-    });
-  };
+const updateStyle = (style, oldCluster, newCluster) => {
+  let newStyle = style;
+  oldCluster.forEach((color, index) => {
+    newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index]);
+  });
+  return newStyle;
+};
 
-  watch(
-    () => settings.value.theme,
-    async (theme) => {
-      const val = themeOptions[theme].primary;
-
-      const oldVal = setting.chalk ? settings.value.theme : ORIGINAL_THEME;
-      console.log(val, oldVal);
-      if (typeof val !== 'string') return;
-      const themeCluster = getThemeCluster(val.replace('#', ''));
-      const originalCluster = getThemeCluster(oldVal.replace('#', ''));
-
-      const getHandler = (variable, id) => {
-        return () => {
-          const originalCluster = getThemeCluster(ORIGINAL_THEME.replace('#', ''));
-          const newStyle = updateStyle(setting[variable], originalCluster, themeCluster);
-          let styleTag = document.getElementById(id);
-          if (!styleTag) {
-            styleTag = document.createElement('style');
-            styleTag.setAttribute('id', id);
-            document.head.appendChild(styleTag);
-          }
-          styleTag.innerText = newStyle;
-        };
-      };
-      if (!setting.chalk) {
-        const url = `https://cdn.jsdelivr.net/npm/element-plus@1.1.0-beta.10/dist/index.css`;
-        await getCSSString(url, 'chalk');
+const getCSSString = (url, variable) => {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        setting[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, '');
+        resolve();
       }
-      const chalkHandler = getHandler('chalk', 'chalk-style');
-      chalkHandler();
-      const styles = [].slice.call(document.querySelectorAll('style')).filter((style) => {
-        const text = style.innerText;
-        console.log(text);
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  });
+};
 
-        console.log(new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text));
-        return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text);
-      });
-      styles.forEach((style) => {
-        const { innerText } = style;
-        if (typeof innerText !== 'string') return;
-        style.innerText = updateStyle(innerText, originalCluster, themeCluster);
-      });
-    },
-    {
-      immediate: true,
+watch(
+  () => settings.value.theme,
+  async (theme) => {
+    const val = themeOptions[theme].primary;
+
+    const oldVal = setting.chalk ? settings.value.theme : ORIGINAL_THEME;
+    console.log(val, oldVal);
+    if (typeof val !== 'string') return;
+    const themeCluster = getThemeCluster(val.replace('#', ''));
+    const originalCluster = getThemeCluster(oldVal.replace('#', ''));
+
+    const getHandler = (variable, id) => {
+      return () => {
+        const originalCluster = getThemeCluster(ORIGINAL_THEME.replace('#', ''));
+        const newStyle = updateStyle(setting[variable], originalCluster, themeCluster);
+        let styleTag = document.getElementById(id);
+        if (!styleTag) {
+          styleTag = document.createElement('style');
+          styleTag.setAttribute('id', id);
+          document.head.appendChild(styleTag);
+        }
+        styleTag.innerText = newStyle;
+      };
+    };
+    if (!setting.chalk) {
+      const url = `https://cdn.jsdelivr.net/npm/element-plus@1.1.0-beta.10/dist/index.css`;
+      await getCSSString(url, 'chalk');
     }
-  );
+    const chalkHandler = getHandler('chalk', 'chalk-style');
+    chalkHandler();
+    const styles = [].slice.call(document.querySelectorAll('style')).filter((style) => {
+      const text = style.innerText;
+      console.log(text);
 
-  const handleClose = () => {
-    store.dispatch('setting/setSettingDrawer', false);
-  };
+      console.log(new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text));
+      return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text);
+    });
+    styles.forEach((style) => {
+      const { innerText } = style;
+      if (typeof innerText !== 'string') return;
+      style.innerText = updateStyle(innerText, originalCluster, themeCluster);
+    });
+  },
+  {
+    immediate: true,
+  }
+);
+
+const handleClose = () => {
+  store.dispatch('setting/setSettingDrawer', false);
+};
 </script>
 
 <style lang="scss" scoped>
-  .theme-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: $base-height;
-    .form {
-      flex: 1;
-      padding: 0 20px;
-    }
-    :deep(.el-form-item__content) {
-      text-align: right;
-    }
-    .theme-select-width {
-      width: $base-select-width-small;
-    }
-    .drawer-footer {
-      position: fixed;
-      bottom: 0;
-      box-sizing: border-box;
-      align-content: center;
-      justify-content: space-between;
-      width: $base-drawer-width;
-      height: $base-drawer-footer-height;
-      padding: $base-padding-10-20;
-      background-color: $base-color-white;
-      border-top: 1px solid $base-border-color;
-    }
+.theme-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: $base-height;
+  .form {
+    flex: 1;
+    padding: 0 20px;
   }
+  :deep(.el-form-item__content) {
+    text-align: right;
+  }
+  .theme-select-width {
+    width: $base-select-width-small;
+  }
+  .drawer-footer {
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    align-content: center;
+    justify-content: space-between;
+    width: $base-drawer-width;
+    height: $base-drawer-footer-height;
+    padding: $base-padding-10-20;
+    background-color: $base-color-white;
+    border-top: 1px solid $base-border-color;
+  }
+}
 </style>

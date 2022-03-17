@@ -1,7 +1,14 @@
 <template>
   <div class="nav-bar-container">
     <el-row :gutter="15">
-      <el-col :xs="4" :sm="12" :md="12" :lg="12" :xl="12" v-if="settings.mode !== ''">
+      <el-col
+        :xs="4"
+        :sm="12"
+        :md="12"
+        :lg="12"
+        :xl="12"
+        v-if="settings.mode !== ''"
+      >
         <div class="left-panel">
           <component
             :title="collapse ? t('navbar.unfold') : t('navbar.fold')"
@@ -26,63 +33,63 @@
 </template>
 
 <script>
-  export default {
-    name: 'NavBar',
-  };
+export default {
+  name: 'NavBar',
+};
 </script>
 
 <script setup>
-  import { defineEmits, computed } from 'vue';
-  import { useStore } from 'vuex';
+import { defineEmits, computed } from 'vue';
+import { useStore } from 'vuex';
 
-  import { useI18n } from 'vue-i18n';
-  const { t } = useI18n();
+import { useI18n } from 'vue-i18n/index';
+const { t } = useI18n();
 
-  const store = useStore();
+const store = useStore();
 
-  const collapse = computed(() => {
-    return store.getters.collapse;
-  });
+const collapse = computed(() => {
+  return store.getters.collapse;
+});
 
-  const isBreadcrumb = computed(() => {
-    return store.getters['setting/isBreadcrumb'];
-  });
+const isBreadcrumb = computed(() => {
+  return store.getters['setting/isBreadcrumb'];
+});
 
-  const settings = computed(() => {
-    return store.getters['setting/settings'];
-  });
+const settings = computed(() => {
+  return store.getters['setting/settings'];
+});
 
-  const emit = defineEmits(['handleCollapse']);
+const emit = defineEmits(['handleCollapse']);
 
-  const handleCollapse = () => {
-    emit('handleCollapse');
-  };
+const handleCollapse = () => {
+  emit('handleCollapse');
+};
 </script>
 
 <style lang="scss" scoped>
-  .nav-bar-container {
-    position: relative;
+.nav-bar-container {
+  position: relative;
+  height: $base-nav-bar-height;
+  padding-right: $base-padding;
+  overflow: hidden;
+  user-select: none;
+  background: $base-color-white;
+  box-shadow: $base-box-shadow;
+  .left-panel {
+    display: flex;
+    align-items: center;
+    justify-items: center;
     height: $base-nav-bar-height;
-    padding-right: $base-padding;
-    overflow: hidden;
-    user-select: none;
-    background: $base-color-white;
-    box-shadow: $base-box-shadow;
-    .left-panel {
-      display: flex;
-      align-items: center;
-      justify-items: center;
-      height: $base-nav-bar-height;
-      .fold-unfold {
-        color: $base-color-gray;
-        cursor: pointer;
-      }
-      .fold {
-        padding: $base-padding-20-10;
-      }
-      :deep(.breadcrumb-container) {
-        margin-left: $base-margin-10;
-      }
+    .fold-unfold {
+      color: $base-color-gray;
+      cursor: pointer;
+    }
+    .fold {
+      padding: $base-padding-20-10;
+    }
+    :deep(.breadcrumb-container) {
+      margin-left: $base-margin-10;
     }
   }
+}
 </style>

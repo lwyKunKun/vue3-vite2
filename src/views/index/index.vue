@@ -127,7 +127,7 @@ import packpage from '../../../package.json';
 import { useStore } from 'vuex';
 const store = useStore();
 
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n/index';
 const { t } = useI18n();
 
 const state = reactive({

@@ -18,14 +18,22 @@
       </div>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input :placeholder="t('register.password')" type="password" v-model="form.password">
+      <el-input
+        :placeholder="t('register.password')"
+        type="password"
+        v-model="form.password"
+      >
         <template #prefix>
           <lock theme="outline" size="16" fill="#999" />
         </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input :placeholder="t('register.confirmPwd')" type="password" v-model="form.password">
+      <el-input
+        :placeholder="t('register.confirmPwd')"
+        type="password"
+        v-model="form.password"
+      >
         <template #prefix>
           <lock theme="outline" size="16" fill="#999" />
         </template>
@@ -33,7 +41,9 @@
     </el-form-item>
     <el-form-item>
       <div class="login-check">
-        <el-checkbox v-model="checkedPwd">{{ t('register.checkText') }}</el-checkbox>
+        <el-checkbox v-model="checkedPwd">{{
+          t('register.checkText')
+        }}</el-checkbox>
       </div>
     </el-form-item>
     <el-form-item>
@@ -45,55 +55,55 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  export default {
-    setup() {
-      const { t } = useI18n();
-      const state = reactive({
-        form: {
-          name: '',
-          password: '',
-        },
-        checkedPwd: false,
-      });
-      return {
-        ...toRefs(state),
-        t,
-      };
-    },
-  };
+import { reactive, toRefs } from 'vue';
+import { useI18n } from 'vue-i18n/index';
+export default {
+  setup () {
+    const { t } = useI18n();
+    const state = reactive({
+      form: {
+        name: '',
+        password: '',
+      },
+      checkedPwd: false,
+    });
+    return {
+      ...toRefs(state),
+      t,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .login-ruleForm {
-    margin-top: 1rem;
-    :deep(.el-input__prefix) {
-      top: 2px;
-      padding: 0 4px;
-    }
-    .login-methods {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-    }
+.login-ruleForm {
+  margin-top: 1rem;
+  :deep(.el-input__prefix) {
+    top: 2px;
+    padding: 0 4px;
+  }
+  .login-methods {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
 
-    .login-btn {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    .login-check {
-      display: flex;
-      align-content: center;
-      justify-content: space-between;
-    }
-    .form-code {
-      display: flex;
-      align-content: center;
-      justify-content: space-between;
-      .code-btn {
-        margin-left: 1rem;
-      }
+  .login-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .login-check {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  .form-code {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    .code-btn {
+      margin-left: 1rem;
     }
   }
+}
 </style>

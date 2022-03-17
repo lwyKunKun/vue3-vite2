@@ -8,6 +8,6 @@
 
 <script setup>
 import ErrorPage from '@/components/ErrorPage/index.vue';
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n/index';
 const { t } = useI18n();
 </script>

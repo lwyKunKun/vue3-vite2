@@ -1,5 +1,10 @@
 <template>
-  <el-form :model="ruleForm" :rules="rules" ref="validateForm" class="login-ruleForm">
+  <el-form
+    :model="ruleForm"
+    :rules="rules"
+    ref="validateForm"
+    class="login-ruleForm"
+  >
     <el-form-item prop="username">
       <el-input :placeholder="t('login.username')" v-model="ruleForm.username">
         <template #prefix>
@@ -21,7 +26,9 @@
     </el-form-item>
     <el-form-item>
       <div class="login-check">
-        <el-checkbox v-model="checkedPwd">{{ t('login.rememberPwd') }}</el-checkbox>
+        <el-checkbox v-model="checkedPwd">{{
+          t('login.rememberPwd')
+        }}</el-checkbox>
         <el-button type="text">{{ t('login.forgotPwd') }}</el-button>
       </div>
     </el-form-item>
@@ -50,91 +57,91 @@
 </template>
 
 <script>
-  import { reactive, toRefs, ref, unref, watch } from 'vue';
-  import { useStore } from 'vuex';
-  import { useRouter } from 'vue-router';
-  import { useI18n } from 'vue-i18n';
-  export default {
-    setup() {
-      const { t } = useI18n();
-      const store = useStore();
-      const router = useRouter();
-      const validateForm = ref(null);
-      const state = reactive({
-        ruleForm: {
-          username: 'admin',
-          password: 'admin',
-        },
-        loading: false,
-        checkedPwd: false,
-        redirect: undefined,
-        rules: {
-          username: [{ required: true, message: t('login.rules.username'), trigger: 'blur' }],
-          password: [{ required: true, message: t('login.rules.password'), trigger: 'blur' }],
-        },
-      });
+import { reactive, toRefs, ref, unref, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n/index';
+export default {
+  setup () {
+    const { t } = useI18n();
+    const store = useStore();
+    const router = useRouter();
+    const validateForm = ref(null);
+    const state = reactive({
+      ruleForm: {
+        username: 'admin',
+        password: 'admin',
+      },
+      loading: false,
+      checkedPwd: false,
+      redirect: undefined,
+      rules: {
+        username: [{ required: true, message: t('login.rules.username'), trigger: 'blur' }],
+        password: [{ required: true, message: t('login.rules.password'), trigger: 'blur' }],
+      },
+    });
 
-      watch(
-        () => router.currentRoute,
-        ({ _value }) => {
-          const route = _value;
-          state.redirect = (route.query && route.query.redirect) || '/';
-        },
-        {
-          immediate: true,
+    watch(
+      () => router.currentRoute,
+      ({ _value }) => {
+        const route = _value;
+        state.redirect = (route.query && route.query.redirect) || '/';
+      },
+      {
+        immediate: true,
+      }
+    );
+
+    const handleLogin = async () => {
+      const form = unref(validateForm);
+      if (!form) return;
+      await form.validate((valid) => {
+        if (valid) {
+          state.valid = true;
+          state.loading = true;
+          store
+            .dispatch('user/login', state.ruleForm)
+            .then(() => {
+              const routerPath =
+                state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
+              console.log(routerPath);
+              router.push(routerPath).catch(() => { });
+              state.loading = false;
+            })
+            .catch(() => {
+              state.loading = false;
+            });
         }
-      );
-
-      const handleLogin = async () => {
-        const form = unref(validateForm);
-        if (!form) return;
-        await form.validate((valid) => {
-          if (valid) {
-            state.valid = true;
-            state.loading = true;
-            store
-              .dispatch('user/login', state.ruleForm)
-              .then(() => {
-                const routerPath =
-                  state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
-                console.log(routerPath);
-                router.push(routerPath).catch(() => {});
-                state.loading = false;
-              })
-              .catch(() => {
-                state.loading = false;
-              });
-          }
-        });
-      };
-      return {
-        ...toRefs(state),
-        validateForm,
-        handleLogin,
-        t,
-      };
-    },
-  };
+      });
+    };
+    return {
+      ...toRefs(state),
+      validateForm,
+      handleLogin,
+      t,
+    };
+  },
+};
 </script>
 <style lang="scss" scoped>
-  .login-ruleForm {
-    margin-top: 1rem;
-    :deep(.el-input__prefix) {
-      top: 2px;
-      padding: 0 4px;
-    }
-    .login-methods {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-    }
-    .login-btn {
-      width: 100%;
-    }
-    .login-check {
-      display: flex;
-      align-content: center;
-      justify-content: space-between;
-    }
+.login-ruleForm {
+  margin-top: 1rem;
+  :deep(.el-input__prefix) {
+    top: 2px;
+    padding: 0 4px;
   }
+  .login-methods {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .login-btn {
+    width: 100%;
+  }
+  .login-check {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+}
 </style>

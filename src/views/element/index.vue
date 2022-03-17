@@ -3,7 +3,9 @@
     <Descrition :title="t('element.title')">
       <template #descrition>
         Vue3-admin-element-template使用的是
-        <a href="https://element-plus.gitee.io/#/zh-CN/component/installation" target="_blank"
+        <a
+          href="https://element-plus.gitee.io/#/zh-CN/component/installation"
+          target="_blank"
           >Element-Plus</a
         >
         UI组件库，以下是常用的组件
@@ -86,30 +88,30 @@
 </template>
 
 <script setup>
-  import Descrition from '@/components/Descrition/index.vue';
-  import { ref, reactive } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  const { t } = useI18n();
-  const cityOptions = ['上海', '北京', '广州', '深圳'];
-  const radio = ref(3);
-  const radio2 = ref('上海');
-  const checked1 = ref(true);
-  const checked2 = ref();
-  const checkbox = ref(['上海']);
-  const date = ref();
-  const dateTime = ref();
-  const cities = reactive(cityOptions);
+import Descrition from '@/components/Descrition/index.vue';
+import { ref, reactive } from 'vue';
+import { useI18n } from 'vue-i18n/index';
+const { t } = useI18n();
+const cityOptions = ['上海', '北京', '广州', '深圳'];
+const radio = ref(3);
+const radio2 = ref('上海');
+const checked1 = ref(true);
+const checked2 = ref();
+const checkbox = ref(['上海']);
+const date = ref();
+const dateTime = ref();
+const cities = reactive(cityOptions);
 </script>
 
 <style lang="scss" scoped>
-  .element-container {
-    padding: $base-main-padding;
-    background-color: $base-color-white;
-    .row {
-      margin: 20px 0;
-    }
-    .group {
-      margin: 0 20px;
-    }
+.element-container {
+  padding: $base-main-padding;
+  background-color: $base-color-white;
+  .row {
+    margin: 20px 0;
   }
+  .group {
+    margin: 0 20px;
+  }
+}
 </style>
