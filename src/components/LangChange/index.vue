@@ -45,7 +45,7 @@ const store = useStore();
 
 const handleSetLanguage = (lang) => {
   store.dispatch('setting/changeLanguage', lang);
-  location.reload();
+  location.reload();//刷新当前文档
 };
 </script>
 

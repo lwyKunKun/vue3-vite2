@@ -139,6 +139,7 @@ export default {
     width: 100%;
   }
   .login-check {
+    width: 100%;
     display: flex;
     align-content: center;
     justify-content: space-between;

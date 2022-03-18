@@ -129,6 +129,6 @@ import SvgIcon from "@/components/SvgIcon/index.vue";
 export default (app) => {
     app.component("svg-icon", SvgIcon);
     components.forEach((component) => {
-        app.component(component.name.replace("icon-", ""), component);
+        app.component(component.name.replace("icon-", ""), component); //去掉名字中的icon-前缀
     });
 };
