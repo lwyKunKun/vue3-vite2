@@ -24,7 +24,7 @@ export const setting = {
     cssCodeSplit: true,
     // 启用/禁用 brotli 压缩大小报告
     brotliSize: false,
-    // 指定服务器应该监听哪个 IP 地址
+    // 指定服务器应该监听哪个IP地址
     host: "0.0.0.0",
     // 指定开发服务器端口
     port: "8089",

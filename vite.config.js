@@ -61,7 +61,7 @@ export default defineConfig({
         svgBuilder("./src/icons/svg/"),
     ],
     server: {
-        host,
+        // host,
         port,
         cors,
         strictPort,
