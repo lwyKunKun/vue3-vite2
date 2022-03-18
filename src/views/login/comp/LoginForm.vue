@@ -111,6 +111,8 @@ export default {
             .catch(() => {
               state.loading = false;
             });
+        } else {
+          console.log('没通过验证');
         }
       });
     };
