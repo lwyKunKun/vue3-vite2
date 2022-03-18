@@ -15,7 +15,7 @@ const themeOptions = {
     theme6: { menuBgColor: "#293246", primary: "#f45555" },
 };
 export const themeConfig = {
-    // 模式 horizontal / vertical
+    // 模式 horizontal（水平） / vertical(垂直)
     mode: "vertical",
     // 主题 默认配置theme1
     // 注意⚠️ ：修改默认主题时，记得同步修改 element-variables.scss

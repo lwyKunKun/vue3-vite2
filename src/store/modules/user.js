@@ -17,12 +17,6 @@ const state = {
     permissions: [],
 };
 
-const getters = {
-    accessToken: (state) => state.accessToken,
-    username: (state) => state.username,
-    avatar: (state) => state.avatar,
-    permissions: (state) => state.permissions,
-};
 const actions = {
     setPermissions({ commit }, permissions) {
         commit("setPermissions", permissions);
@@ -94,6 +88,12 @@ const mutations = {
     setPermissions(state, permissions) {
         state.permissions = permissions;
     },
+};
+const getters = {
+    accessToken: (state) => state.accessToken,
+    username: (state) => state.username,
+    avatar: (state) => state.avatar,
+    permissions: (state) => state.permissions,
 };
 
 export default { state, getters, mutations, actions };

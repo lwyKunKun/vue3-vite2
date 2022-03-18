@@ -6,50 +6,6 @@
 const state = {
     visitedRoutes: [],
 };
-
-const getters = {
-    visitedRoutes: (state) => state.visitedRoutes,
-};
-const mutations = {
-    addVisitedRoute(state, route) {
-        let target = state.visitedRoutes.find((item) => item.path === route.path);
-        if (target) {
-            if (route.fullPath !== target.fullPath) Object.assign(target, route);
-            return;
-        }
-        state.visitedRoutes.push(Object.assign({}, route));
-    },
-    delVisitedRoute(state, route) {
-        state.visitedRoutes.forEach((item, index) => {
-            if (item.path === route.path) state.visitedRoutes.splice(index, 1);
-        });
-    },
-    delOthersVisitedRoute(state, route) {
-        state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix || item.path === route.path);
-    },
-    delLeftVisitedRoute(state, route) {
-        let index = state.visitedRoutes.length;
-        state.visitedRoutes = state.visitedRoutes.filter((item) => {
-            if (item.name === route.name) index = state.visitedRoutes.indexOf(item);
-            return item.meta.affix || index <= state.visitedRoutes.indexOf(item);
-        });
-    },
-    delRightVisitedRoute(state, route) {
-        let index = state.visitedRoutes.length;
-        state.visitedRoutes = state.visitedRoutes.filter((item) => {
-            if (item.name === route.name) index = state.visitedRoutes.indexOf(item);
-            return item.meta.affix || index >= state.visitedRoutes.indexOf(item);
-        });
-    },
-    delAllVisitedRoutes(state) {
-        state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix);
-    },
-    updateVisitedRoute(state, route) {
-        state.visitedRoutes.forEach((item) => {
-            if (item.path === route.path) item = Object.assign(item, route);
-        });
-    },
-};
 const actions = {
     addVisitedRoute({ commit }, route) {
         commit("addVisitedRoute", route);
@@ -108,4 +64,49 @@ const actions = {
         commit("updateVisitedRoute", route);
     },
 };
+
+const mutations = {
+    addVisitedRoute(state, route) {
+        let target = state.visitedRoutes.find((item) => item.path === route.path);
+        if (target) {
+            if (route.fullPath !== target.fullPath) Object.assign(target, route);
+            return;
+        }
+        state.visitedRoutes.push(Object.assign({}, route));
+    },
+    delVisitedRoute(state, route) {
+        state.visitedRoutes.forEach((item, index) => {
+            if (item.path === route.path) state.visitedRoutes.splice(index, 1);
+        });
+    },
+    delOthersVisitedRoute(state, route) {
+        state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix || item.path === route.path);
+    },
+    delLeftVisitedRoute(state, route) {
+        let index = state.visitedRoutes.length;
+        state.visitedRoutes = state.visitedRoutes.filter((item) => {
+            if (item.name === route.name) index = state.visitedRoutes.indexOf(item);
+            return item.meta.affix || index <= state.visitedRoutes.indexOf(item);
+        });
+    },
+    delRightVisitedRoute(state, route) {
+        let index = state.visitedRoutes.length;
+        state.visitedRoutes = state.visitedRoutes.filter((item) => {
+            if (item.name === route.name) index = state.visitedRoutes.indexOf(item);
+            return item.meta.affix || index >= state.visitedRoutes.indexOf(item);
+        });
+    },
+    delAllVisitedRoutes(state) {
+        state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix);
+    },
+    updateVisitedRoute(state, route) {
+        state.visitedRoutes.forEach((item) => {
+            if (item.path === route.path) item = Object.assign(item, route);
+        });
+    },
+};
+const getters = {
+    visitedRoutes: (state) => state.visitedRoutes,
+};
+
 export default { state, getters, mutations, actions };

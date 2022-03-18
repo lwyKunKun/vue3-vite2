@@ -41,7 +41,7 @@ watch(
 );
 const changeBodyWidth = () => {
   const flag = document.body.getBoundingClientRect().width - 1 < 992;
-  store.dispatch('setting/changeMobile', flag);
+  store.dispatch('setting/changeMobile', flag);//setting/:作用域 去相应的模块里面去找
 };
 
 const changeResize = () => {
