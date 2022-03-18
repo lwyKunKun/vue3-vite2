@@ -18,39 +18,39 @@
 </template>
 
 <script setup>
-  import { reactive, computed, defineProps } from 'vue';
-  import { useStore } from 'vuex';
-  defineProps({
-    color: {
-      type: String,
-      default: '#666',
-    },
-  });
-  const languages = reactive([
-    {
-      name: '简体中文',
-      value: 'zh-cn',
-    },
-    {
-      name: 'English',
-      value: 'en',
-    },
-  ]);
+import { reactive, computed, defineProps } from 'vue';
+import { useStore } from 'vuex';
+defineProps({
+  color: {
+    type: String,
+    default: '#666',
+  },
+});
+const languages = reactive([
+  {
+    name: '简体中文',
+    value: 'zh-cn',
+  },
+  {
+    name: 'English',
+    value: 'en',
+  },
+]);
 
-  const language = computed(() => {
-    return store.getters['setting/lang'];
-  });
+const language = computed(() => {
+  return store.getters['setting/lang'];
+});
 
-  const store = useStore();
+const store = useStore();
 
-  const handleSetLanguage = (lang) => {
-    store.dispatch('setting/changeLanguage', lang);
-    location.reload();
-  };
+const handleSetLanguage = (lang) => {
+  store.dispatch('setting/changeLanguage', lang);
+  location.reload();
+};
 </script>
 
 <style lang="scss" scoped>
-  .icon-lang {
-    padding: 20px 10px;
-  }
+.icon-lang {
+  padding: 20px 10px;
+}
 </style>

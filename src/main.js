@@ -4,6 +4,7 @@ const app = createApp(App);
 
 // permission 权限文件
 import "./config/permission";
+
 // element
 import "element-plus/theme-chalk/display.css";
 
@@ -19,6 +20,7 @@ app.use(router);
 import store from "@/store";
 app.use(store);
 
+//国际化
 import loadI18n from "./plugin/i18n";
 loadI18n(app);
 
