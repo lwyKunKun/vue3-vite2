@@ -42,7 +42,6 @@ const handleCode = (code, msg) => {
             break;
     }
 };
-
 const instance = axios.create({
     baseURL,
     timeout: requestTimeout,
@@ -51,9 +50,11 @@ const instance = axios.create({
     },
 });
 
+// 添加请求拦截器: 这是向后台服务器发起的ajax请求
 instance.interceptors.request.use(
     (config) => {
-        console.log(config.header, "config");
+        console.log(config, "config");
+        console.log(config.data, "config.data");
         if (store.getters["user/accessToken"]) {
             config.headers[tokenName] = store.getters["user/accessToken"];
         }
@@ -64,7 +65,21 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
+// 添加响应拦截器
+instance.interceptors.request.use(
+    (config) => {
+        console.log(config, "config");
+        console.log(config.data, "config.data");
+        if (store.getters["user/accessToken"]) {
+            config.headers[tokenName] = store.getters["user/accessToken"];
+        }
+        if (config.data && config.headers["Content-Type"] === "application/x-www-form-urlencoded;charset=UTF-8") config.data = qs.stringify(config.data);
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 instance.interceptors.response.use(
     (response) => {
         const res = response.data;
@@ -82,7 +97,7 @@ instance.interceptors.response.use(
     },
     (error) => {
         const { response, message } = error;
-        console.log(error);
+        console.log(error, "error");
         if (error.response && error.response.data) {
             const { status, data } = response;
             console.log("---===1222=", response);

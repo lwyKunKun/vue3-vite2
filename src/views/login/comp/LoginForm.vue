@@ -104,7 +104,7 @@ export default {
             .then(() => {
               const routerPath =
                 state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
-              console.log(routerPath);
+              console.log(routerPath, 'routerPath');
               router.push(routerPath).catch(() => { });
               state.loading = false;
             })

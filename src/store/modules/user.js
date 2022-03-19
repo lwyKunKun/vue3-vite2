@@ -22,7 +22,6 @@ const actions = {
         commit("setPermissions", permissions);
     },
     async login({ commit }, userInfo) {
-        // console.log(userInfo, "userInfo");
         const { data } = await login(userInfo);
         console.log(data, "data");
         const accessToken = data[tokenName];

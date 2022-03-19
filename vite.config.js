@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 const path = require("path");
 const isDev = process.env.NODE_ENV === "development";
+console.log(isDev, "123");
+
 import { setting } from "./src/config/setting";
 import legacy from "@vitejs/plugin-legacy";
 import { viteMockServe } from "vite-plugin-mock"; //mock模拟数据
@@ -42,10 +44,10 @@ export default defineConfig({
             modernPolyfills: ["es.promise.finally"],
         }),
         viteMockServe({
-            mockPath: "mock",
-            supportTs: false,
-            localEnabled: isDev,
-            prodEnabled: !isDev,
+            mockPath: "mock", //mock文件地址
+            supportTs: false, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
+            localEnabled: isDev, // 开发打包开关
+            prodEnabled: !isDev, // 生产打包开关
             injectCode: `
            import { setupProdMockServer } from './mockProdServer';
            setupProdMockServer();
@@ -61,7 +63,7 @@ export default defineConfig({
         svgBuilder("./src/icons/svg/"),
     ],
     server: {
-        // host,
+        host,
         port,
         cors,
         strictPort,
@@ -106,6 +108,7 @@ export default defineConfig({
         terserOptions: {
             compress: {
                 keep_infinity: true,
+                // 用于删除生产环境中的console
                 drop_console,
                 drop_debugger,
             },

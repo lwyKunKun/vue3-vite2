@@ -3,10 +3,11 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
+        "dev": "cross-env NODE_ENV=development vite",
+        "build": "cross-env NODE_ENV=production vite build",
         "preview": "vite preview",
-        "dev:mock": "cross-env USE_MOCK=true vite"
+        "dev:mock": "cross-env USE_MOCK=true NODE_ENV=development vite",
+        "serve": "vite"
     },
     "dependencies": {
         "@element-plus/icons": "0.0.11",

@@ -22,7 +22,6 @@ export default [{
         url: "/api/login",
         method: "post",
         response: (config) => {
-            console.log(config, "112233");
             const { username } = config.body;
             const accessToken = accessTokens[username];
             if (!accessToken) {

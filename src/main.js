@@ -28,4 +28,7 @@ loadI18n(app);
 import iconPark from "./plugin/icon-park";
 iconPark(app);
 
+import { setupProdMockServer } from "./mockProdServer";
+setupProdMockServer();
+
 app.mount("#app");
