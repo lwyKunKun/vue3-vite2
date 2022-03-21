@@ -6,7 +6,11 @@
     class="login-ruleForm"
   >
     <el-form-item prop="username">
-      <el-input :placeholder="t('login.username')" v-model="ruleForm.username">
+      <el-input
+        :placeholder="t('login.username')"
+        v-model="ruleForm.username"
+        clearable
+      >
         <template #prefix>
           <user theme="outline" size="16" fill="#999" />
         </template>
@@ -18,6 +22,7 @@
         :placeholder="t('login.password')"
         type="password"
         v-model="ruleForm.password"
+        clearable
       >
         <template #prefix>
           <lock theme="outline" size="16" fill="#999" />
@@ -104,7 +109,6 @@ export default {
             .then(() => {
               const routerPath =
                 state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
-              console.log(routerPath, 'routerPath');
               router.push(routerPath).catch(() => { });
               state.loading = false;
             })

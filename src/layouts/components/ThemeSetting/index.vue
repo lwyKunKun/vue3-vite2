@@ -273,9 +273,9 @@ watch(
     chalkHandler();
     const styles = [].slice.call(document.querySelectorAll('style')).filter((style) => {
       const text = style.innerText;
-      console.log(text);
+      //  console.log(text); 
 
-      console.log(new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text));
+      //   console.log(new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text));
       return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text);
     });
     styles.forEach((style) => {
