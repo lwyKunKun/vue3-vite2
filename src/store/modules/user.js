@@ -23,7 +23,6 @@ const actions = {
     },
     async login({ commit }, userInfo) {
         const { data } = await login(userInfo);
-        console.log(data, "data");
         const accessToken = data[tokenName];
         if (accessToken) {
             commit("setAccessToken", accessToken);
@@ -48,6 +47,7 @@ const actions = {
         }
     },
     async getUserInfo({ commit, state }) {
+        console.log(state.accessToken, "state.accessToken");
         const { data } = await getUserInfo(state.accessToken);
         if (!data) {
             ElMessage.error("验证失败，请重新登录...");

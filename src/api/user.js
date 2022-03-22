@@ -2,7 +2,6 @@ import request from "@/utils/request.js";
 import { setting } from "@/config/setting";
 const { tokenName } = setting;
 export const login = async(data) => {
-    console.log(data, "12345");
     return request({
         url: "/login",
         method: "post",

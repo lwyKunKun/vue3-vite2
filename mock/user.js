@@ -24,6 +24,7 @@ export default [{
         response: (config) => {
             const { username } = config.body;
             const accessToken = accessTokens[username];
+            console.log(accessToken, "accessToken");
             if (!accessToken) {
                 return {
                     code: 500,
